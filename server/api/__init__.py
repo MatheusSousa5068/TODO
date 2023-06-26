@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from flask import Flask, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Api
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, abort
 
 
 
@@ -59,24 +58,29 @@ class TasksRoutes(Resource):
     def put(self, text):
         task = Task.query.filter_by(task_text=text).first()
 
-        if 'new_text' in request.json:
-            task.task_text = request.json['new_text']
-            
-        if 'status' in request.json:
-            task.is_done = not task.is_done
+        if task:
+            if 'new_text' in request.json:
+                task.task_text = request.json['new_text']
+                
+            if 'status' in request.json:
+                task.is_done = not task.is_done
 
-        db.session.commit()
-        return task.json()
+            db.session.commit()
+            return task.json()
+        
+        abort(404, message="Task not found.")
     
 
     def delete(self, text):
         task = Task.query.filter_by(task_text=text).first()
 
-        db.session.delete(task)
-        db.session.commit()
+        if task:
+            db.session.delete(task)
+            db.session.commit()
 
-        return {'note': 'deleted'}
+            return {'note': 'deleted'}
     
+        abort(404, message="Task not found.")
 
     
 class AllTasks(Resource):
@@ -88,8 +92,3 @@ class AllTasks(Resource):
 api_app = Api(app)
 api_app.add_resource(TasksRoutes, '/task/<string:text>')
 api_app.add_resource(AllTasks, '/task')
-
-    
-
-
-
