@@ -69,6 +69,15 @@ class TasksRoutes(Resource):
         return task.json()
     
 
+    def delete(self, text):
+        task = Task.query.filter_by(task_text=text).first()
+
+        db.session.delete(task)
+        db.session.commit()
+
+        return {'note': 'deleted'}
+    
+
     
 class AllTasks(Resource):
     def get(self):
