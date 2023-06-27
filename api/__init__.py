@@ -18,7 +18,7 @@ dotenv_path = os.path.join(basedir, '.env')
 load_dotenv(dotenv_path) # loads .env
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'server', 'data.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
