@@ -38,7 +38,7 @@ class Task(db.Model):
         self.task_text = task_text
 
     def json(self):
-        return {'Task': (self.task_text, self.is_done)}
+        return {'Task': (self.id, self.task_text, self.is_done)}
     
 
     def __repr__(self):

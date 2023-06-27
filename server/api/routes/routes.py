@@ -42,3 +42,9 @@ class TasksRoutes(Resource):
 class AllTasks(Resource):
     def get(self):
         return [task.json() for task in api.Task.query.all()]
+    
+    def delete(self):
+        api.Task.query.delete()
+        api.db.session.commit()
+
+        return {'note': 'deleted all tasks'}
