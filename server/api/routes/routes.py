@@ -28,7 +28,7 @@ class TasksRoutes(Resource):
     
 
     def delete(self, text):
-        task = api.Task.query.filter_by(task_text=text).first()
+        task = api.Task.query.filter_by(id=text).first()
 
         if task:
             api.db.session.delete(task)
