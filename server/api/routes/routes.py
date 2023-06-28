@@ -12,7 +12,7 @@ class TasksRoutes(Resource):
 
 
     def put(self, text):
-        task = api.Task.query.filter_by(task_text=text).first()
+        task = api.Task.query.filter_by(id=text).first()
 
         if task:
             if 'new_text' in request.json:
