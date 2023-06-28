@@ -94,12 +94,10 @@ function App() {
     }
 
     const handleEditSave = async (id) => {
-        console.log('ie');
         setEditingId(null)
 
         const todo = todos.find((todo) => todo.Task[0] === id)
         if (todo) {
-            console.log('ie2');
             try {
                 const response = await fetch(
                     `http://localhost:5000/task/${id}`,
@@ -165,7 +163,7 @@ function App() {
                                                 handleEditSave(todo.Task[0])
                                             }
                                         >
-                                            Salvar
+                                            Save
                                         </button>
                                     </div>
                                 ) : (
@@ -185,7 +183,7 @@ function App() {
                                                 handleEditClick(todo.Task[0])
                                             }
                                         >
-                                            Editar
+                                            Edit
                                         </button>
                                     </div>
                                 )}
